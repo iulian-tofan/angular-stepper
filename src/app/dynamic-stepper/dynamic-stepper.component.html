@@ -1,0 +1,10 @@
+<div>
+  <ul>
+    @for (step of steps; track $index) {
+    <li (click)="goToStep($index)">
+      {{ step.label }}
+    </li>
+    }
+  </ul>
+  <div #stepContainer></div>
+</div>
