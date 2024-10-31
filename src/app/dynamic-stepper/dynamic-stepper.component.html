@@ -1,10 +1,65 @@
 <div>
   <ul>
     @for (step of steps; track $index) {
-    <li (click)="goToStep($index)">
-      {{ step.label }}
-    </li>
+      <li (click)="goToStep($index)">
+        {{ step.label }}
+      </li>
     }
   </ul>
-  <div #stepContainer></div>
+
+  @switch (stepNumber) {
+    @case (0) {
+      <app-step-one [formControl]="$any(formArray.at(0))"></app-step-one>
+    }
+    @case (1) {
+      <app-step-two [formControl]="$any(formArray.at(1))"></app-step-two>
+    }
+  }
+
+  <!-- <div #stepContainer></div> -->
 </div>
+<pre>{{ formArray.value | json }}</pre>
+
+<br />
+<br />
+<br />
+<br />
+
+@for (step of formArray.controls; track step) {
+  @switch ($index) {
+    @case (0) {
+      <app-step-one [formControl]="$any(formArray.at(0))"></app-step-one>
+    }
+    @case (1) {
+      <app-step-two [formControl]="$any(formArray.at(1))"></app-step-two>
+    }
+  }
+}
+
+<pre>{{ formArray.value | json }}</pre>
+
+<br />
+<br />
+<br />
+<br />
+
+<form [formGroup]="mainForm">
+  <app-step-one
+    [formControl]="$any(mainForm.controls['group1'])"
+  ></app-step-one>
+  <app-step-two
+    [formControl]="$any(mainForm.controls['group2'])"
+  ></app-step-two>
+</form>
+<pre>{{ mainForm.value | json }}</pre>
+
+<br />
+<br />
+<br />
+<br />
+
+<form [formGroup]="mainForm">
+  <app-step-one formControlName="group1"></app-step-one>
+  <app-step-two formControlName="group2"></app-step-two>
+</form>
+<pre>{{ mainForm.value | json }}</pre>
